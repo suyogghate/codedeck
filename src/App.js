@@ -1,15 +1,16 @@
-import { React, Suspense } from 'react';
+import  React, { Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import routes from "./routes";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "./firebaseConf";
 
 const SignIn = React.lazy(() => import("./Pages/SignIn"));
+const SignUp = React.lazy(() => import("./Pages/SignUp"));
 const Page404 = React.lazy(() => import("./Pages/Page404"));
 
 function App() {
-  const [user] = useAuthState(auth);
-  // let user = "sdfvd";
+  // const [user] = useAuthState(auth);
+  let user = "sdfvd";
 
   return (
     <Suspense>
