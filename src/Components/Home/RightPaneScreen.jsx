@@ -3,16 +3,31 @@ import { BiEditAlt } from "react-icons/bi";
 import { IoTrashOutline } from "react-icons/io5";
 import { FcOpenedFolder } from "react-icons/fc";
 import Card from "../Card";
+import { ModalContext } from "../Context/ModalContext";
 
 function RightPaneScreen() {
+  const { openModal } = React.useContext(ModalContext);
+
   return (
     <div className="h-screen p-8">
       <div className="flex justify-between placeholder:mt-8 items-center">
         <h2>
           My<span className="font-semibold text-2xl">PlayGround</span>
         </h2>
-        <h4>
-          <span className="font-semibold text-2xl">+ </span>New Folder
+        <h4 className="cursor-pointer"
+          onClick={() => {
+            openModal({
+              show: true,
+              modalType: 1,
+              identifiers: {
+                folderId: "null",
+                playground: "null",
+              },
+            });
+          }}
+        >
+          <span className="font-semibold text-2xl cursor-pointer">+ </span>New
+          Folder
         </h4>
       </div>
       <hr className="mb-12 mt-4 bg-black" />
@@ -52,7 +67,7 @@ function RightPaneScreen() {
             </div>
           </div>
         </Card>
-        
+
         <Card>
           <div className="flex items-center justify-between">
             <div className="flex gap-4 items-center">
