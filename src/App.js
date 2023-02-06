@@ -4,6 +4,7 @@ import routes from "./routes";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "./firebaseConf";
 import ModalProvider from "./Components/Context/ModalContext";
+import PlaygroundProvider from "./Components/Context/PlayGroundContext";
 
 const SignIn = React.lazy(() => import("./Pages/SignIn"));
 const SignUp = React.lazy(() => import("./Pages/SignUp"));
@@ -15,42 +16,44 @@ function App() {
 
   return (
     <Suspense>
-      <ModalProvider>
-        <Router>
-          <Routes>
-            {user ? (
-              <>
-                {routes.map((route, index) => {
-                  return (
-                    <Route
-                      key={index}
-                      path={route.path}
-                      element={route.component}
-                    />
-                  );
-                })}
-              </>
-            ) : (
-              <>
-                <Route path="/" element={<SignIn />} />
-                <Route path="*" element={<SignIn />} />
-                {routes.map((route, index) => {
-                  return (
-                    <Route
-                      key={index}
-                      path={route.path}
-                      element={
-                        route.privateRoute ? <Page404 /> : route.component
-                      }
-                    />
-                  );
-                })}
-                )
-              </>
-            )}
-          </Routes>
-        </Router>
-      </ModalProvider>
+      <PlaygroundProvider>
+        <ModalProvider>
+          <Router>
+            <Routes>
+              {user ? (
+                <>
+                  {routes.map((route, index) => {
+                    return (
+                      <Route
+                        key={index}
+                        path={route.path}
+                        element={route.component}
+                      />
+                    );
+                  })}
+                </>
+              ) : (
+                <>
+                  <Route path="/" element={<SignIn />} />
+                  <Route path="*" element={<SignIn />} />
+                  {routes.map((route, index) => {
+                    return (
+                      <Route
+                        key={index}
+                        path={route.path}
+                        element={
+                          route.privateRoute ? <Page404 /> : route.component
+                        }
+                      />
+                    );
+                  })}
+                  )
+                </>
+              )}
+            </Routes>
+          </Router>
+        </ModalProvider>
+      </PlaygroundProvider>
     </Suspense>
   );
 }
