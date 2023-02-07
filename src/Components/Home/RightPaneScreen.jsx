@@ -20,8 +20,8 @@ function RightPaneScreen() {
         <h2>
           My<span className="font-semibold text-2xl">PlayGround</span>
         </h2>
-        <h4
-          className="cursor-pointer"
+        <h3
+          className="cursor-pointer hover:scale-75"
           onClick={() => {
             openModal({
               show: true,
@@ -35,7 +35,7 @@ function RightPaneScreen() {
         >
           <span className="font-semibold text-2xl cursor-pointer">+ </span>New
           Folder
-        </h4>
+        </h3>
       </div>
       <hr className="mb-12 mt-4 bg-black" />
       {folders &&
@@ -43,18 +43,42 @@ function RightPaneScreen() {
           <div className="flex-col flex my-8">
             <div className="flex justify-between placeholder:mt-8 items-center">
               <div className="flex gap-4 items-center" key={folderId}>
-                <FcOpenedFolder className="text-2xl" />
+                <FcOpenedFolder className="text-2xl cursor-pointer" />
                 <h5 className="font-semibold">{folder.title}</h5>
               </div>
               <div className="flex gap-4 items-center">
-                <BiEditAlt className="text-2xl" />
+                <BiEditAlt
+                  className="text-2xl cursor-pointer"
+                  onClick={() =>
+                    openModal({
+                      show: true,
+                      modalType: 4,
+                      identifiers: {
+                        folderId: folderId,
+                        cardId: "",
+                      },
+                    })
+                  }
+                />
                 <IoTrashOutline
-                  className="text-2xl"
+                  className="text-2xl cursor-pointer"
                   onClick={() => deleteFolder(folderId)}
                 />
-                <h5 className="font-semibold">
+                <h4
+                  className="font-semibold cursor-pointer hover:scale-75"
+                  onClick={() =>
+                    openModal({
+                      show: true,
+                      modalType: 1,
+                      identifiers: {
+                        folderId: "",
+                        cardId: "",
+                      },
+                    })
+                  }
+                >
                   +<span> New PlayGround</span>
-                </h5>
+                </h4>
               </div>
             </div>
             <hr className="mb-12 mt-4 bg-black" />
@@ -64,7 +88,10 @@ function RightPaneScreen() {
                   <Card key={playgroundId}>
                     <div
                       onClick={
-                        (e) => e.stopPropagation() // stop click propagation to parent
+                        (e) => {
+                          e.stopPropagation();   // stop click propagation to parent
+                          navigate(`/playground/${folderId}/${playgroundId}`)
+                        } 
                       }
                       className="flex items-center justify-between"
                     >
@@ -85,9 +112,21 @@ function RightPaneScreen() {
                           (e) => e.stopPropagation() // stop click propagation to parent
                         }
                       >
-                        <BiEditAlt className="text-2xl" />
+                        <BiEditAlt
+                          className="text-2xl cursor-pointer"
+                          onClick={() =>
+                            openModal({
+                              show: true,
+                              modalType: 5,
+                              identifiers: {
+                                folderId: folderId,
+                                cardId: playgroundId,
+                              },
+                            })
+                          }
+                        />
                         <IoTrashOutline
-                          className="text-2xl"
+                          className="text-2xl cursor-pointer"
                           onClick={() => deleteCard(folderId, playgroundId)}
                         />
                       </div>

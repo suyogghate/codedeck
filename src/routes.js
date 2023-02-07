@@ -14,7 +14,7 @@ const routes = [
         private: true
     },
     {
-        path: "/playground",
+        path: "/playground/:folderId/:playgroundId",
         component: <PlayGround />,
         private: true
     },
