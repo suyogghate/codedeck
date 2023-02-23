@@ -11,8 +11,11 @@ const SignUp = React.lazy(() => import("./Pages/SignUp"));
 const Page404 = React.lazy(() => import("./Pages/Page404"));
 
 function App() {
-  // const [user] = useAuthState(auth);
-  let user = "sdfvd";
+  const [user] = useAuthState(auth);
+  // console.log(user);
+
+  React.useEffect(() => {}, [user]);
+  // let user = "sdfvd";
 
   return (
     <Suspense>

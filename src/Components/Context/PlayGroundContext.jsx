@@ -66,9 +66,9 @@ const PlaygroundProvider = ({ children }) => {
   });
 
   React.useEffect(() => {
-    if (user && firstLoad) {
+    if (firstLoad && user) {
       // we are getting data from the firebase
-      const resultRef = db.collection("users").doc(user.uid);
+      const resultRef = db.collection("users").doc(user?.uid);
       resultRef
         .get()
         .then((response) => {
@@ -81,9 +81,9 @@ const PlaygroundProvider = ({ children }) => {
     }
     if (user && !firstLoad) {
       // we are sending data to the firebase
-      const resultRef = db.collection("users").doc(user.uid);
+      const resultRef = db.collection("users").doc(user?.uid);
       resultRef
-        .set(folders)
+        .set(folders ? folders : initialItems)
         .then((response) => {
           console.log("Data saved successfully!");
         })

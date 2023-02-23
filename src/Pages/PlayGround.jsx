@@ -82,8 +82,8 @@ function PlayGround() {
 
     const res = await axios.request(options);
 
-    if (res.data.status.id <= 2) {
-      const res2 = await axios.request(options);
+    if (res.data.status_id <= 2) {
+      const res2 = await getSubmission(token);
       return res2.data;
     }
     return res.data;
@@ -95,7 +95,7 @@ function PlayGround() {
       Modaltype: 6,
       identifiers: {
         folderId: "",
-        playgroundId: "",
+        cardId: "",
       },
     });
     const language_id = languageMap[currentLanguage].id;
@@ -118,7 +118,7 @@ function PlayGround() {
     let final_output = "";
 
     if (result.status_id !== 3) {
-      if (decoded_compile_output !== "") {
+      if (decoded_compile_output === "") {
         final_output = decoded_error;
       } else {
         final_output = decoded_compile_output;
